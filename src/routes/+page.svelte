@@ -20,7 +20,10 @@
     ];
 </script>
 
-<Navbar />
+<div class="sticky top-0 z-50">
+    <Navbar showNavbar={true}/>
+</div>
+
 
 <div class="bg-[#E9ECFF]">
     <div class="max-w-4xl mx-auto"> 
