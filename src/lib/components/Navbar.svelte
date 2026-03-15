@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import { Navbar, NavBrand, NavLi, NavUl, Button, NavHamburger, Dropdown, DropdownItem, DropdownDivider } from "flowbite-svelte";
   import { ChevronDownOutline } from "flowbite-svelte-icons";
 
@@ -14,7 +14,7 @@
         <NavLi href="/" class="hover:font-bold">Crear nota</NavLi>
     </NavUl>
     {#if showNavbar}
-      <Button href="/" class="font-semibold bg-[#808CFD] border-2 border-solid border-[#808CFD] rounded-xl hover:bg-[#6B79E0] hover:border-[#6B79E0] hover:text-white hover:font-bold focus:ring-0 transition-all hover:shadow-lg focus:shadow-md">Iniciar sesión</Button>
+      <Button href="/" class="btn-notehub">Iniciar sesión</Button>
     {:else}
       <NavHamburger />
       <NavUl>
