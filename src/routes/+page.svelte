@@ -133,7 +133,7 @@
 </script>
 
 <div class="sticky top-0 z-50">
-    <Navbar showNavbar={true}/>
+    <Navbar showBtnI={true}/>
 </div>
 
 <div class="bg-[#E9ECFF]">
@@ -173,14 +173,14 @@
     </div>
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
         <Card class="flex flex-col max-w-auto min-h-150 p-6 border-[#DECFFA]">
-            <Input bind:value={title_T} class=" bg-transparent mb-2 border-transparent font-bold focus:border-[#808CFD]" placeholder="Título..."></Input>
-            <Textarea bind:value={description_T} rows={32} class="bg-transparent flex-1 h-full overflow-y-auto resize-none w-full border-[#DECFFA] text-gray-500 focus:border-[#808CFD]" placeholder="Descripción"></Textarea>
+            <Input bind:value={title_T} class=" bg-transparent mb-2 border-transparent font-bold focus:border-[#808CFD] placeholder:text-gray-500 text-black" placeholder="Título..."></Input>
+            <Textarea bind:value={description_T} rows={32} class="bg-transparent flex-1 h-full overflow-y-auto resize-none w-full border-[#DECFFA] placeholder:text-gray-500 text-black focus:border-[#808CFD]" placeholder="Descripción"></Textarea>
             <Button onclick={saveNote} class="mt-4 btn-notehub self-end w-auto h-auto">Guardar</Button>
         </Card>
         
         <Card class="max-w-auto p-6 border-[#DECFFA]">
             <form>
-                <Input bind:value={searchQuery} id="search" placeholder="Search" size="lg" class="bg-transparent focus:border-[#808CFD] border-[#DECFFA] text-gray-500 ps-9">
+                <Input bind:value={searchQuery} id="search" placeholder="Search" class="bg-transparent focus:border-[#808CFD] border-[#DECFFA] text-black placeholder:text-gray-500 ps-9">
                     {#snippet left()}
                     <SearchOutline class="h-6 w-6 text-[#DECFFA]" />
                     {/snippet}
@@ -215,4 +215,4 @@
     </div>
 </div>
 
-<Footer showFooter={true} />
+<Footer showInf={true} />

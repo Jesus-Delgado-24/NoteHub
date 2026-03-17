@@ -2,7 +2,7 @@
   import { Navbar, NavBrand, NavLi, NavUl, Button, NavHamburger, Dropdown, DropdownItem, DropdownDivider } from "flowbite-svelte";
   import { ChevronDownOutline } from "flowbite-svelte-icons";
 
-  let { showNavbar= true } = $props();
+  let { showBtnI= true } = $props();
 </script>
 
 <Navbar class="bg-[#E9ECFF] shadow-md w-full border-b border-gray-200">
@@ -13,8 +13,8 @@
     <NavUl>
         <NavLi href="/#create-note" class="hover:font-bold">Crear nota</NavLi>
     </NavUl>
-    {#if showNavbar}
-      <Button href="/" class="btn-notehub">Iniciar sesión</Button>
+    {#if showBtnI}
+      <Button href="/login" class="btn-notehub">Iniciar sesión</Button>
     {:else}
       <NavHamburger />
       <NavUl>
