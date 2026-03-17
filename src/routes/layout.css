@@ -26,3 +26,7 @@
            focus:ring-0 transition-all hover:shadow-lg focus:shadow-md;
   }
 }
+
+html {
+    scroll-behavior: smooth;
+}

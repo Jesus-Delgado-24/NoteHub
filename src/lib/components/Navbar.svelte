@@ -11,7 +11,7 @@
   </NavBrand>
   <div class="flex items-center md:order-2">
     <NavUl>
-        <NavLi href="/" class="hover:font-bold">Crear nota</NavLi>
+        <NavLi href="/#create-note" class="hover:font-bold">Crear nota</NavLi>
     </NavUl>
     {#if showNavbar}
       <Button href="/" class="btn-notehub">Iniciar sesión</Button>
