@@ -20,8 +20,116 @@
         }
     ];
 
-    let filterDate = false;
-    let filterFav = false;
+    let filterDate = $state(false);
+    let filterFav = $state(false);
+
+    let searchQuery = $state("");
+
+    let title_T = $state("");
+    let description_T = $state("");
+    let listNotes = $state<any[]>([]);
+
+    let editingId = $state<number | null>(null);
+
+    const displayNotes = $derived.by(() => {
+        let filtered = listNotes.filter(n => 
+            n.title.toLowerCase().includes(searchQuery.toLowerCase()) || 
+            n.description.toLowerCase().includes(searchQuery.toLowerCase())
+        );
+
+        filtered.sort((a, b) => filterDate ? a.timestamp - b.timestamp : b.timestamp - a.timestamp);
+
+        if (filterFav) {
+            filtered.sort((a, b) => (a.fav === b.fav ? 0 : a.fav ? -1 : 1));
+        }
+
+        return filtered;
+    });
+    
+    function filterByDate() {
+        filterDate = !filterDate;
+    }
+
+    function filterByFav() {
+        filterFav = !filterFav;
+    }
+
+    function btnFav(nota: any) {
+        const index = listNotes.findIndex(n => n.id === nota.id);
+        if (index !== -1) {
+            listNotes[index].fav = !listNotes[index].fav;
+            listNotes = [...listNotes];
+        }
+    }
+
+    function fDate(){
+        listNotes = [...listNotes].sort((a, b) => {
+            return filterDate 
+                ? a.timestamp - b.timestamp 
+                : b.timestamp - a.timestamp;
+        });
+    }
+
+    function saveNote(){
+        if(title_T.trim() === "" || description_T.trim() === ""){
+            alert("Por favor, completa ambos campos antes de guardar la nota.");
+            return;
+        }else{
+
+            if (editingId) {
+                listNotes = listNotes.map(n => 
+                    n.id === editingId 
+                    ? { ...n, title: title_T, description: description_T, timestamp: Date.now(), fecha: new Date().toLocaleDateString('es-ES', { day: 'numeric', month: 'long', year: 'numeric' }) }
+                    : n
+                );
+                editingId = null;
+
+                fDate();
+            } else {
+                const newNote = {
+                    id: Date.now(),
+                    title: title_T,
+                    description: description_T,
+                    timestamp: Date.now(),
+                    fecha: new Date().toLocaleDateString('es-ES', { day: 'numeric', month: 'long', year: 'numeric' })
+                };
+                listNotes = [newNote, ...listNotes];
+            }
+
+            title_T = "";
+            description_T = "";
+        }
+    };
+
+    function prepareEdit(nota: any) {
+        editingId = nota.id;
+        title_T = nota.title;
+        description_T = nota.description;
+        
+        document.getElementById('create-note')?.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function deleteNote(id: number) {
+        if (confirm("¿Estás seguro de que quieres eliminar esta nota?")) {
+            listNotes = listNotes.filter(nota => nota.id !== id);
+            
+            if (editingId === id) {
+                editingId = null;
+                title_T = "";
+                description_T = "";
+            }
+        }
+    }
+
+    const topFavorites = $derived.by(() => {
+        return listNotes
+            .filter(n => n.fav)
+            .sort((a, b) => b.timestamp - a.timestamp) 
+            .slice(0, 3);
+    });
+
+    
+
 </script>
 
 <div class="sticky top-0 z-50">
@@ -40,26 +148,39 @@
     </div>
 
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        <CardC showFav={true} />
-        <CardC showFav={true} />
-        <CardC showFav={true} />
+        {#each topFavorites as fN (fN.id)}
+            <CardC 
+                title={fN.title} 
+                description={fN.description} 
+                fecha={fN.fecha} 
+                showFav={fN.fav} 
+                onEdit={() => prepareEdit(fN)} 
+                onFav={() => btnFav(fN)} 
+                onDelete={() => deleteNote(fN.id)} 
+                class="w-full max-w-lg" 
+            />
+        {/each}
     </div>
+
+    {#if topFavorites.length === 0}
+        <p class="text-center text-gray-400 italic">No tienes notas favoritas aún.</p>
+    {/if}
 </div>
 
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-20 mb-10">
-    <div class="mb-12">
+    <div id="create-note" class="mb-12">
         <h2 class="text-3xl font-bold text-center uppercase tracking-widest text-black">Crear Nota</h2>
     </div>
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
         <Card class="flex flex-col max-w-auto min-h-150 p-6 border-[#DECFFA]">
-            <Input class="bg-transparent mb-2 border-transparent font-bold focus:border-[#808CFD]" placeholder="Título..."></Input>
-            <Textarea rows={32} class="bg-transparent flex-1 h-full overflow-y-auto resize-none w-full border-[#DECFFA] text-gray-500 focus:border-[#808CFD]" placeholder="Descripción"></Textarea>
-            <Button class="mt-4 btn-notehub self-end w-auto h-auto">Guardar</Button>
+            <Input bind:value={title_T} class=" bg-transparent mb-2 border-transparent font-bold focus:border-[#808CFD]" placeholder="Título..."></Input>
+            <Textarea bind:value={description_T} rows={32} class="bg-transparent flex-1 h-full overflow-y-auto resize-none w-full border-[#DECFFA] text-gray-500 focus:border-[#808CFD]" placeholder="Descripción"></Textarea>
+            <Button onclick={saveNote} class="mt-4 btn-notehub self-end w-auto h-auto">Guardar</Button>
         </Card>
         
         <Card class="max-w-auto p-6 border-[#DECFFA]">
             <form>
-                <Input id="search" placeholder="Search" size="lg" class="bg-transparent focus:border-[#808CFD] border-[#DECFFA] text-gray-500 ps-9">
+                <Input bind:value={searchQuery} id="search" placeholder="Search" size="lg" class="bg-transparent focus:border-[#808CFD] border-[#DECFFA] text-gray-500 ps-9">
                     {#snippet left()}
                     <SearchOutline class="h-6 w-6 text-[#DECFFA]" />
                     {/snippet}
@@ -67,7 +188,7 @@
             </form>
 
             <div class="mt-4 flex flex-row items-center justify-start space-x-2">
-                <Button class="btn-notehub">
+                <Button onclick={filterByDate} class="btn-notehub">
                     Fecha
                     {#if filterDate}
                         <ArrowUpOutline class="h-5 w-5" />
@@ -75,7 +196,7 @@
                         <ArrowDownOutline class="h-5 w-5" />
                     {/if}
                 </Button>
-                <Button class="btn-notehub">
+                <Button onclick={filterByFav} class="btn-notehub">
                     Favoritas
                     {#if filterFav}
                         <StarSolid class="h-5 w-5" />
@@ -86,12 +207,9 @@
             </div>
 
             <div class="mt-4 flex flex-col items-center gap-6 max-h-160 overflow-y-auto pr-2 custom-scroll">
-                <CardC showFav={false} class="w-full max-w-lg" />
-                <CardC showFav={false} class="w-full max-w-lg" />
-                <CardC showFav={false} class="w-full max-w-lg" />
-                <CardC showFav={false} class="w-full max-w-lg" />
-                <CardC showFav={false} class="w-full max-w-lg" />
-                <CardC showFav={false} class="w-full max-w-lg" />
+                {#each displayNotes as lN (lN.id)}
+                    <CardC title={lN.title} description={lN.description} fecha={lN.fecha} showFav={lN.fav} onEdit={() => prepareEdit(lN)} onFav={() => btnFav(lN)} onDelete={() => deleteNote(lN.id)} class="w-full max-w-lg" />
+                {/each}
             </div>
         </Card>
     </div>
