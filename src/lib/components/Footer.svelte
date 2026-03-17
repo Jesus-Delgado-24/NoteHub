@@ -1,7 +1,7 @@
 <script lang="ts">
     import { Footer as FlowbiteFooter, FooterCopyright, FooterLinkGroup, FooterLink, P } from "flowbite-svelte";
     
-    let { showFooter = true } = $props();
+    let { showInf = true } = $props();
 </script>
 
 <FlowbiteFooter footerType="socialmedia" class="bg-[#E9ECFF]">
@@ -15,7 +15,7 @@
         </div>
     </div>
 
-    {#if showFooter}
+    {#if showInf}
         <div class="grid grid-cols-2 gap-8">
             <div>
                 <h2 class="mb-6 text-lg font-bold text-gray-900 uppercase dark:text-white">Contacto</h2>
