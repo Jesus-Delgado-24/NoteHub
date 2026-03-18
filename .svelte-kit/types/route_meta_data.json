@@ -1,5 +1,11 @@
 {
-	"/": [],
-	"/login": [],
-	"/register": []
+	"/": [
+		"src/routes/+page.server.js"
+	],
+	"/login": [
+		"src/routes/login/+page.server.js"
+	],
+	"/register": [
+		"src/routes/register/+page.server.js"
+	]
 }
