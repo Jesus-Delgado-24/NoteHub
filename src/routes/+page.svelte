@@ -4,6 +4,7 @@
     import Footer from "$lib/components/Footer.svelte";
     import CardC from "$lib/components/Card.svelte";
     import { SearchOutline, ArrowUpOutline, ArrowDownOutline, StarOutline, StarSolid } from "flowbite-svelte-icons";
+    import { enhance } from "$app/forms";
 
     const imagenes = [
         {
@@ -173,8 +174,8 @@
     </div>
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
         <Card class="flex flex-col max-w-auto min-h-150 p-6 border-[#DECFFA]">
-            <Input bind:value={title_T} class=" bg-transparent mb-2 border-transparent font-bold focus:border-[#808CFD] placeholder:text-gray-500 text-black" placeholder="Título..."></Input>
-            <Textarea bind:value={description_T} rows={32} class="bg-transparent flex-1 h-full overflow-y-auto resize-none w-full border-[#DECFFA] placeholder:text-gray-500 text-black focus:border-[#808CFD]" placeholder="Descripción"></Textarea>
+            <Input name="title" bind:value={title_T} class=" bg-transparent mb-2 border-transparent font-bold focus:border-[#808CFD] placeholder:text-gray-500 text-black" placeholder="Título..."></Input>
+            <Textarea name="description" bind:value={description_T} rows={32} class="bg-transparent flex-1 h-full overflow-y-auto resize-none w-full border-[#DECFFA] placeholder:text-gray-500 text-black focus:border-[#808CFD]" placeholder="Descripción"></Textarea>
             <Button onclick={saveNote} class="mt-4 btn-notehub self-end w-auto h-auto">Guardar</Button>
         </Card>
         
