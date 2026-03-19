@@ -7,7 +7,7 @@ export const actions = {
         const email = data.get('email');
         const password = data.get('password');
 
-        // Validar el usuario
+        console.log(email, password);
 
         return { success: true };
     }
