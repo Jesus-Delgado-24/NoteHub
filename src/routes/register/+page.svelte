@@ -31,9 +31,7 @@
 
             if (response.status === 400) {
                 toast.warning(result.error || "Ocurrió un error");
-            } else if (response.status === 500){
-                toast.error(result.error || "Ocurrió un error");
-            } else if (response.ok) {
+            }else if (response.ok) {
                 toast.success(result.message || "¡Registro exitoso!");
                 setTimeout(() => goto('/'), 2000);
             }else{

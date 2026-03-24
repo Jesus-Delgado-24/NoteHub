@@ -3,7 +3,6 @@
     import Footer from "$lib/components/Footer.svelte";
     import {Card, Input, Button, Label, P, A} from "flowbite-svelte";
     import { EyeOutline, EyeSlashOutline } from 'flowbite-svelte-icons';
-    import { enhance } from '$app/forms';
     import { toast, Toaster } from 'svelte-sonner';
     import { goto } from '$app/navigation';
 
@@ -32,9 +31,7 @@
 
             if (response.status === 400) {
                 toast.warning(result.error || "Ocurrió un error");
-            } else if (response.status === 500){
-                toast.error(result.error || "Ocurrió un error");
-            } else if (response.ok) {
+            }else if (response.ok) {
                 toast.success(result.message || "¡Inicio de sesión exitoso!");
                 setTimeout(() => goto('/'), 2000);
             }else{
