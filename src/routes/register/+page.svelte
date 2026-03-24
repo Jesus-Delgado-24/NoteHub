@@ -1,14 +1,52 @@
-<script>
+<script lang="ts">
     import Navbar from "$lib/components/Navbar.svelte";
     import Footer from "$lib/components/Footer.svelte";
     import {Card, Input, Button, Label, P, A} from "flowbite-svelte";
     import { EyeOutline, EyeSlashOutline } from 'flowbite-svelte-icons';
-    import { enhance } from '$app/forms';
+    import { toast, Toaster } from 'svelte-sonner';
+    import { goto } from '$app/navigation';
     
-    let { form } = $props();
     let showPassword = $state(false);
+    let isLoading = $state(false);
+
+    async function handleRegister(event: SubmitEvent) {
+        event.preventDefault();
+        
+        const target = event.currentTarget as HTMLFormElement;
+        if (!target) return;
+
+        isLoading = true;
+
+        const formData = new FormData(target);
+        const data = Object.fromEntries(formData);
+
+        try {
+            const response = await fetch('/api/register', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
+            });
+
+            const result = await response.json();
+
+            if (response.status === 400) {
+                toast.warning(result.error || "Ocurrió un error");
+            }else if (response.ok) {
+                toast.success(result.message || "¡Registro exitoso!");
+                setTimeout(() => goto('/'), 2000);
+            }else{
+                toast.error(result.error || "Ocurrió un error inesperado");
+            }
+        } catch (error) {
+            toast.error("Error de conexión con el servidor");
+        } finally {
+            isLoading = false;
+        }
+    }
 
 </script>
+
+<Toaster richColors position="bottom-right" expand={true} />
 
 <div class="sticky top-0 z-50">
     <Navbar showBtnI={true}/>
@@ -18,7 +56,7 @@
     <Card class="w-full max-w-115 mx-auto mt-10 mb-10 border-[#DECFFA] p-10 flex flex-col items-center">
         <Label class="font-bold text-black text-xl">NoteHub</Label>
         <Label class="font-semibold text-black text-lg mt-8">Registro</Label>
-        <form method="POST" action="?/create" use:enhance class="w-full flex flex-col items-center">
+        <form onsubmit={handleRegister} class="w-full flex flex-col items-center">
             <Label class="text-black mt-8 text-base" for="username">Nombre de Usuario</Label>
             <Input name="username" required id="username" class="bg-transparent focus:border-[#808CFD] border-[#DECFFA] text-black placeholder:text-gray-500 focus:border-2" type="text" placeholder="Nombre de Usuario" />
             <Label class="text-black mt-3 text-base" for="email">Correo</Label>
@@ -71,12 +109,7 @@
                     {/if}
                 </button>
             </div>
-            {#if form?.message}
-                <p class="text-red-500 text-sm mt-4 font-medium">
-                    {form.message}
-                </p>
-            {/if}
-            <Button type="submit" class="mt-8 h-max-auto w-max-auto btn-notehub">Registrarse</Button>
+            <Button type="submit" disabled={isLoading} class="mt-8 h-max-auto w-max-auto btn-notehub">{isLoading ? 'Registrando...' : 'Registrarse'}</Button>        
         </form>
         
         <P class="text-base text-black mt-3">¿Ya Tienes Cuenta? <A href="/login" class="text-[#808CFD] hover:underline">Iniciar sesión</A></P>
