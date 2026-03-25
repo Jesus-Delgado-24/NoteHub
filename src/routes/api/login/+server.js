@@ -2,10 +2,8 @@ import { db } from '$lib/server/db';
 import { json } from '@sveltejs/kit';
 import bcrypt from 'bcrypt';
 
-export async function POST(events) {
+export async function POST({request, cookies}) {
     try {
-        const { request } = events;
-
         const { email, password } = await request.json();
 
         // Validar campos
@@ -24,6 +22,14 @@ export async function POST(events) {
         if (!isMatch) {
             return json({ error: "Contraseña incorrecta" }, { status: 400 });
         }
+
+        cookies.set('session_id', user._id.toString(), {
+            path: '/',
+            httpOnly: true,
+            sameSite: 'strict',
+            secure: process.env.NODE_ENV === 'production',
+            maxAge: 60 * 60 * 24
+        });
 
         return json({ message: "Logueo exitosamente" }, { status: 200 });
     }catch (error) {

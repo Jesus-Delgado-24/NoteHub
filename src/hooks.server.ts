@@ -1,5 +1,6 @@
 import { db } from '$lib/server/db';
 import bcrypt from 'bcrypt';
+import { ObjectId } from 'mongodb';
 
 async function seedUser() {
     try {
@@ -26,5 +27,25 @@ async function seedUser() {
 seedUser();
 
 export async function handle({ event, resolve }) {
+    const sessionId = event.cookies.get('session_id');
+
+    if (sessionId) {
+        try {
+            // Busca directamente en MongoDB
+            const user = await db.collection('Users').findOne({ 
+                _id: new ObjectId(sessionId) 
+            });
+
+            if (user) {
+                event.locals.user = {
+                    id: user._id.toString(),
+                    username: user.username
+                };
+            }
+        } catch (error) {
+            console.error("Error al validar sesión:", error);
+        }
+    }
+
     return await resolve(event);
 }
