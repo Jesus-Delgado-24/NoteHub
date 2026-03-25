@@ -4,13 +4,32 @@
 
     let { title, description, fecha, onEdit, onFav, onDelete, showFav, class: className = '', ...rest } = $props();
 
+    function formatFecha(fechaRaw: string | Date) {
+        const d = new Date(fechaRaw);
+        if (isNaN(d.getTime())) return "Reciente";
+
+        const fecha = d.toLocaleDateString('es-MX', {
+            day: '2-digit',
+            month: '2-digit',
+            year: 'numeric'
+        }); 
+        
+        const hora = d.toLocaleTimeString('es-MX', { 
+            hour: '2-digit', 
+            minute: '2-digit', 
+            hour12: true 
+        });
+
+        return `${fecha} - ${hora}`;
+    }
+
 </script>
 
 <Card {...rest} class="p-4 sm:p-8 md:p-5 bg-[#E9ECFF] {className} border-none shadow-md">
     <div class="flex flex-row items-start justify-between mb-4">
         <div class="flex flex-col items-start overflow-hidden me-4">
             <h5 class="text-xl font-bold text-gray-900 dark:text-white truncate w-full">{title}</h5>
-            <p class="text-xs font-medium text-gray-500 uppercase tracking-tight">{fecha}</p>
+            <p class="text-xs font-medium text-gray-500 uppercase tracking-tight">{formatFecha(fecha)}</p>
         </div>
 
         <div class="flex flex-row items-center space-x-2 shrink-0">
