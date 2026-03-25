@@ -5,13 +5,16 @@
 		"src/routes/+layout.server.ts"
 	],
 	"/api/login": [
-		"src/routes/api/login/+server.js"
+		"src/routes/api/login/+server.ts"
 	],
 	"/api/logout": [
 		"src/routes/api/logout/+server.ts"
 	],
+	"/api/note": [
+		"src/routes/api/note/+server.ts"
+	],
 	"/api/register": [
-		"src/routes/api/register/+server.js"
+		"src/routes/api/register/+server.ts"
 	],
 	"/login": [
 		"src/routes/login/+page.server.js",
