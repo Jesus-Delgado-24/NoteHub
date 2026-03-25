@@ -1,9 +1,22 @@
 <script lang="ts">
   import { Navbar, NavBrand, NavLi, NavUl, Button, NavHamburger, Dropdown, DropdownItem, DropdownDivider } from "flowbite-svelte";
   import { ChevronDownOutline } from "flowbite-svelte-icons";
+  import { invalidateAll } from '$app/navigation';
+  import { toast, Toaster } from 'svelte-sonner';
 
-  let { showBtnI= true } = $props();
+  let { showBtnI= true, user = null } = $props();
+
+  async function handleLogout() {
+    const response = await fetch('/api/logout', { method: 'POST' });
+    if (response.ok) {
+        await invalidateAll();
+        window.location.href = '/';
+        toast.success("¡Cierre de sesión exitoso!");
+    }
+  }
 </script>
+
+<Toaster richColors position="bottom-right" expand={true} />
 
 <Navbar class="bg-[#E9ECFF] shadow-md w-full border-b border-gray-200">
   <NavBrand href="/">
@@ -18,13 +31,13 @@
     {:else}
       <NavHamburger />
       <NavUl>
-        <NavLi class="cursor-pointer hover:font-bold">
-          Correo<ChevronDownOutline class="ms-2 inline h-6 w-6 hover:font-bold" />
+        <NavLi class="cursor-pointer hover:font-bold font-semibold">
+          {user}<ChevronDownOutline class="ms-2 inline h-6 w-6 hover:font-bold" />
         </NavLi>
         <Dropdown simple class="w-44">
           <DropdownItem href="/" class="hover:font-bold">Editar Perfil</DropdownItem>
           <DropdownDivider />
-          <DropdownItem href="/" class="hover:font-bold">Cerrar sesión</DropdownItem>
+          <DropdownItem onclick={handleLogout} class="hover:font-bold">Cerrar sesión</DropdownItem>
         </Dropdown>
       </NavUl>
     {/if}

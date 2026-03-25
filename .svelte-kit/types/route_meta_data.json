@@ -1,17 +1,24 @@
 {
 	"/": [
-		"src/routes/+page.server.js"
+		"src/routes/+page.server.js",
+		"src/routes/+layout.server.ts",
+		"src/routes/+layout.server.ts"
 	],
 	"/api/login": [
 		"src/routes/api/login/+server.js"
+	],
+	"/api/logout": [
+		"src/routes/api/logout/+server.ts"
 	],
 	"/api/register": [
 		"src/routes/api/register/+server.js"
 	],
 	"/login": [
-		"src/routes/login/+page.server.js"
+		"src/routes/login/+page.server.js",
+		"src/routes/+layout.server.ts"
 	],
 	"/register": [
-		"src/routes/register/+page.server.js"
+		"src/routes/register/+page.server.js",
+		"src/routes/+layout.server.ts"
 	]
 }

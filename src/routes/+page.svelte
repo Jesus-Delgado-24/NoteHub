@@ -4,7 +4,8 @@
     import Footer from "$lib/components/Footer.svelte";
     import CardC from "$lib/components/Card.svelte";
     import { SearchOutline, ArrowUpOutline, ArrowDownOutline, StarOutline, StarSolid } from "flowbite-svelte-icons";
-    import { enhance } from "$app/forms";
+    
+    let { data } = $props();
 
     const imagenes = [
         {
@@ -134,7 +135,11 @@
 </script>
 
 <div class="sticky top-0 z-50">
-    <Navbar showBtnI={true}/>
+    {#if data.user}
+        <Navbar showBtnI={false} user={data.user.username}/>
+    {:else}
+        <Navbar showBtnI={true}/>
+    {/if}
 </div>
 
 <div class="bg-[#E9ECFF]">

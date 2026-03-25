@@ -5,6 +5,7 @@
     import { EyeOutline, EyeSlashOutline } from 'flowbite-svelte-icons';
     import { toast, Toaster } from 'svelte-sonner';
     import { goto } from '$app/navigation';
+    import { invalidateAll } from '$app/navigation';
 
     let showPassword = $state(false);
     let isLoading = $state(false);
@@ -32,8 +33,9 @@
             if (response.status === 400) {
                 toast.warning(result.error || "Ocurrió un error");
             }else if (response.ok) {
+                await invalidateAll();
+                window.location.href = '/';
                 toast.success(result.message || "¡Inicio de sesión exitoso!");
-                setTimeout(() => goto('/'), 2000);
             }else{
                 toast.error(result.error || "Ocurrió un error inesperado");
             }
@@ -65,8 +67,9 @@
             const result = await response.json();
 
             if (response.ok) {
+                await invalidateAll();
+                window.location.href = '/';
                 toast.success(result.message || "¡Inicio de sesión exitoso!");
-                setTimeout(() => goto('/'), 2000);
             }else{
                 toast.error(result.error || "Ocurrió un error inesperado");
             }
