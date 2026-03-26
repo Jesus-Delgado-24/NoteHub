@@ -20,6 +20,9 @@
 		"src/routes/login/+page.server.js",
 		"src/routes/+layout.server.ts"
 	],
+	"/profile": [
+		"src/routes/+layout.server.ts"
+	],
 	"/register": [
 		"src/routes/register/+page.server.js",
 		"src/routes/+layout.server.ts"

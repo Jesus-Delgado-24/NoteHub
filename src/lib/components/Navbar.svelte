@@ -35,7 +35,7 @@
           {user}<ChevronDownOutline class="ms-2 inline h-6 w-6 hover:font-bold" />
         </NavLi>
         <Dropdown simple class="w-44">
-          <DropdownItem href="/" class="hover:font-bold">Editar Perfil</DropdownItem>
+          <DropdownItem href="/profile" class="hover:font-bold">Editar Perfil</DropdownItem>
           <DropdownDivider />
           <DropdownItem onclick={handleLogout} class="hover:font-bold">Cerrar sesión</DropdownItem>
         </Dropdown>

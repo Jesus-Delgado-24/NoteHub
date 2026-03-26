@@ -7,6 +7,7 @@
     import { goto } from '$app/navigation';
     
     let showPassword = $state(false);
+    let showPassword2 = $state(false);
     let isLoading = $state(false);
 
     async function handleRegister(event: SubmitEvent) {
@@ -93,16 +94,16 @@
                     name="password_confirm"
                     id="password_confirm" 
                     class="bg-transparent focus:border-[#808CFD] border-[#DECFFA] text-black placeholder:text-gray-500 focus:border-2 pr-10" 
-                    type={showPassword ? "text" : "password"} 
+                    type={showPassword2 ? "text" : "password"} 
                     placeholder="••••••••" 
                 />
                 
                 <button 
                     type="button" 
                     class="absolute inset-y-0 right-0 flex items-center pr-3 text-[#DECFFA] hover:text-[#808CFD] z-10"
-                    onclick={() => (showPassword = !showPassword)}
+                    onclick={() => (showPassword2 = !showPassword2)}
                 >
-                    {#if showPassword}
+                    {#if showPassword2}
                         <EyeSlashOutline class="h-5 w-5" />
                     {:else}
                         <EyeOutline class="h-5 w-5" />
