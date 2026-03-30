@@ -126,7 +126,6 @@
             const response = await fetch('/api/note');
             if (response.ok) {
                 listNotes = await response.json();
-                console.log(listNotes);
             } else {
                 console.error("Error al obtener notas");
             }
@@ -269,9 +268,9 @@
 
 <div class="sticky top-0 z-50">
     {#if data.user}
-        <Navbar showBtnI={false} user={data.user.username}/>
+        <Navbar showBtnI={false} user={data.user.username} colorO={data.user.color} />
     {:else}
-        <Navbar showBtnI={true}/>
+        <Navbar showBtnI={true} colorO={"#E9ECFF"} />
     {/if}
 </div>
 

@@ -50,7 +50,7 @@
 <Toaster richColors position="bottom-right" expand={true} />
 
 <div class="sticky top-0 z-50">
-    <Navbar showBtnI={true}/>
+    <Navbar showBtnI={true} colorO={"#E9ECFF"} />
 </div>
 
 <div>

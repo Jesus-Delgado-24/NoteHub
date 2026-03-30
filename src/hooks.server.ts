@@ -39,7 +39,8 @@ export async function handle({ event, resolve }) {
             if (user) {
                 event.locals.user = {
                     id: user._id.toString(),
-                    username: user.username
+                    username: user.username,
+                    color: user.color || '#E9ECFF'
                 };
             }
         } catch (error) {

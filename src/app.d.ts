@@ -7,6 +7,7 @@ declare global {
 			user?: {
 				id: string;
 				username: string;
+				color: string;
 			};
 		}
 		// interface PageData {}

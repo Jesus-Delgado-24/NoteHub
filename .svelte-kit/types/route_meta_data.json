@@ -13,6 +13,9 @@
 	"/api/note": [
 		"src/routes/api/note/+server.ts"
 	],
+	"/api/profile": [
+		"src/routes/api/profile/+server.ts"
+	],
 	"/api/register": [
 		"src/routes/api/register/+server.ts"
 	],
