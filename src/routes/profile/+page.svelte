@@ -5,6 +5,7 @@
     import { EyeOutline, EyeSlashOutline } from 'flowbite-svelte-icons';
     import { toast, Toaster } from 'svelte-sonner';
     import { onMount } from 'svelte';
+    import { invalidateAll } from '$app/navigation';
 
     let { data } = $props();
     let selectedValue = $state("3");
@@ -42,6 +43,7 @@
             }else if (response.ok) {
                 toast.success(result.message || "¡Registro exitoso!");
                 handleGet();
+                await invalidateAll();
             }else{
                 toast.error(result.error || "Ocurrió un error inesperado");
             }
