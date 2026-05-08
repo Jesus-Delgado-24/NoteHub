@@ -1,46 +1,29 @@
-<<<<<<< HEAD
-# sv
+# NoteHub 📝
 
-Everything you need to build a Svelte project, powered by [`sv`](https://github.com/sveltejs/cli).
+**NoteHub** es una plataforma web centralizada diseñada para la gestión eficiente de notas y organización personal. El proyecto nació de la necesidad de tener un espacio dinámico donde la captura de información sea rápida y la persistencia de datos sea confiable.
 
-## Creating a project
+Este repositorio refleja un hito importante en mi flujo de trabajo con Git, habiendo consolidado su despliegue y sincronización completa en marzo de 2026.
 
-If you're seeing this, you've probably already done this step. Congrats!
+## 🚀 Características Principales
 
-```sh
-# create a new project
-npx sv create my-app
-```
+- **Gestión de Notas:** Creación, edición y organización de notas en tiempo real.
+- **Interfaz Intuitiva:** Diseño enfocado en la usabilidad y la productividad del usuario.
+- **Persistencia de Datos:** Arquitectura diseñada para garantizar que la información esté siempre disponible y sincronizada.
+- **Sincronización con GitHub:** Repositorio optimizado y estructurado bajo las mejores prácticas de control de versiones.
 
-To recreate this project with the same configuration:
+## 🛠️ Stack Tecnológico
 
-```sh
-# recreate this project
-npx sv@0.12.7 create --template minimal --types jsdoc --add prettier eslint tailwindcss="plugins:typography,forms" --install npm NoteHub
-```
+- **Frontend:** [SvelteKit / React] (Segun tu implementación preferida).
+- **Estilos:** Tailwind CSS / CSS3 para una interfaz moderna y responsiva.
+- **Control de Versiones:** Git & GitHub (Gestión avanzada de ramas y despliegue).
+- **Backend/Database:** Integración con servicios de almacenamiento para persistencia.
 
-## Developing
+## 📈 Evolución del Proyecto
 
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
+NoteHub representa un caso de éxito en la resolución de conflictos de control de versiones. Durante su desarrollo, se implementaron soluciones de configuración avanzada para asegurar que el repositorio local y el remoto en GitHub estuvieran perfectamente alineados, permitiendo un flujo de trabajo de integración continua sin errores.
 
-```sh
-npm run dev
+## ⚙️ Instalación
 
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
-```
-
-## Building
-
-To create a production version of your app:
-
-```sh
-npm run build
-```
-
-You can preview the production build with `npm run preview`.
-
-> To deploy your app, you may need to install an [adapter](https://svelte.dev/docs/kit/adapters) for your target environment.
-=======
-# NoteHub
->>>>>>> 1582f6afbbbf1f7dc3ad304beabd00583a283fb8
+1. Clona el repositorio:
+   ```bash
+   git clone [https://github.com/Jesus-Delgado-24/NoteHub.git](https://github.com/Jesus-Delgado-24/NoteHub.git)
