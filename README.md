@@ -13,7 +13,7 @@ Este repositorio refleja un hito importante en mi flujo de trabajo con Git, habi
 
 ## 🛠️ Stack Tecnológico
 
-- **Frontend:** [SvelteKit / React] (Segun tu implementación preferida).
+- **Frontend:** SvelteKit.
 - **Estilos:** Tailwind CSS / CSS3 para una interfaz moderna y responsiva.
 - **Control de Versiones:** Git & GitHub (Gestión avanzada de ramas y despliegue).
 - **Backend/Database:** Integración con servicios de almacenamiento para persistencia.
